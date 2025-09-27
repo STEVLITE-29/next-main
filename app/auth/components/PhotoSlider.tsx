@@ -1,11 +1,15 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image, { StaticImageData } from "next/image";
+
 import Image1 from "@/public/OnboardingImg1.svg";
 import Image2 from "@/public/OnboardingImg2.svg";
 import Image3 from "@/public/OnboardingImg3.svg";
 
 const PhotoSlider: React.FC = () => {
-  const images = [Image1, Image2, Image3];
+  const images: StaticImageData[] = [Image1, Image2, Image3];
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const prevSlide = () => {
@@ -27,15 +31,25 @@ const PhotoSlider: React.FC = () => {
   }, [images.length]);
 
   return (
-    <div className="p-4 h-screen justify-center items-center lg:flex hidden sticky">
+    <div
+      className="
+        hidden lg:flex
+        fixed top-0 right-0
+        w-[55%] h-screen
+        p-4
+        justify-center items-center
+      "
+    >
       <div className="w-full h-full relative">
-        <img
+        <Image
           src={images[currentIndex]}
           alt={`Slide ${currentIndex + 1}`}
-          className="w-full h-full object-cover rounded-xl"
+          fill
+          priority
+          className="object-cover rounded-xl"
         />
 
-        {/* Arrows and Pagination */}
+        {/* Arrows + Pagination */}
         <div className="flex justify-between items-center absolute bottom-10 left-1/2 transform -translate-x-1/2 w-[90%]">
           {/* Pagination Dots */}
           <div className="flex space-x-2">
@@ -43,9 +57,7 @@ const PhotoSlider: React.FC = () => {
               <span
                 key={i}
                 className={`h-1 w-8 rounded-full transition-all duration-300 ${
-                  i === currentIndex
-                    ? "bg-primary"
-                    : "bg-muted-foreground/50"
+                  i === currentIndex ? "bg-primary" : "bg-muted-foreground/50"
                 }`}
               />
             ))}

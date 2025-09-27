@@ -1,6 +1,6 @@
-import GiftIcon from "@/public/GiftIcon.svg";
-import ReceiveIcon from "@/public/ReceiveIcon.svg";
-import VendorIcon from "@/public/VendorIcon.svg";
+"use client";
+
+import Image from "next/image";
 
 interface Role {
   role: string;
@@ -18,20 +18,20 @@ interface RoleCardProps {
 const roles: Role[] = [
   {
     role: "gifter",
-    icon: GiftIcon,
+    icon: "/GiftIcon.svg",
     title: "Gifter",
     description:
       "Share joy with someone you know — or a stranger who needs it.",
   },
   {
     role: "receiver",
-    icon: ReceiveIcon,
+    icon: "/ReceiveIcon.svg",
     title: "Receiver",
     description: "Lucky you! Claim your gift and see what surprises await.",
   },
   {
     role: "vendor",
-    icon: VendorIcon,
+    icon: "/VendorIcon.svg",
     title: "Vendor",
     description:
       "Reach new customers, fulfill meaningful orders, and grow your impact.",
@@ -44,7 +44,7 @@ const RoleCardList: React.FC<RoleCardProps> = ({
   onContinue,
 }) => {
   return (
-    <div className="flex flex-col gap-2.5">
+    <div className="flex flex-col gap-3 w-full">
       {roles.map(({ role, icon, title, description }) => {
         const isSelected = selectedRole === role;
 
@@ -52,20 +52,26 @@ const RoleCardList: React.FC<RoleCardProps> = ({
           <div
             key={role}
             onClick={() => onSelect(role)}
-            className={`rounded-lg py-4 px-5 cursor-pointer flex items-center border transition-all
+            className={`rounded-lg py-4 px-4 sm:px-5 cursor-pointer flex items-center border transition-all
               ${
                 isSelected
                   ? "bg-muted border-2 border-primary"
                   : "bg-card border hover:border-primary"
               }`}
           >
-            <div className="flex items-start gap-4">
-              <img src={icon} alt={`${title} Icon`} className="w-8" />
-              <div className="max-w-[352px]">
-                <h2 className="mb-1 text-foreground text-sm font-semibold">
+            <div className="flex items-start gap-3 sm:gap-4">
+              <Image
+                src={icon}
+                alt={`${title} Icon`}
+                width={32}
+                height={32}
+                className="w-7 h-7 sm:w-8 sm:h-8"
+              />
+              <div className="flex-1">
+                <h2 className="mb-1 text-foreground text-sm sm:text-base font-semibold">
                   {title}
                 </h2>
-                <p className="text-muted-foreground text-xs w-[300px] font-medium">
+                <p className="text-muted-foreground text-xs sm:text-sm font-medium leading-snug">
                   {description}
                 </p>
               </div>
@@ -77,7 +83,7 @@ const RoleCardList: React.FC<RoleCardProps> = ({
       <button
         onClick={onContinue}
         disabled={!selectedRole}
-        className={`mt-3 w-full py-2.5 font-semibold rounded-xl text-center transition-all flex justify-center items-center gap-2
+        className={`mt-4 w-full py-2.5 sm:py-3 font-semibold rounded-xl text-center transition-all flex justify-center items-center gap-2 text-sm sm:text-base
           ${
             selectedRole
               ? "bg-primary text-primary-foreground hover:bg-primary/90"
