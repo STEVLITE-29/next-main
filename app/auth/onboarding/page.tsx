@@ -29,8 +29,8 @@ export default function OnboardingPage() {
 
   return (
     <main className="grid grid-cols-1 lg:grid lg:grid-cols-[45%_55%] min-h-screen">
-      {/* Left Section */}
-      <div className="px-6 sm:px-10 md:px-16 py-8 flex flex-col justify-center">
+      {/* Left Section - MODIFIED PADDING HERE */}
+      <div className="px-6 py-8 flex flex-col justify-center sm:px-10 lg:px-16">
         <Image
           src={GivvaIcon}
           alt="Givva Logo"

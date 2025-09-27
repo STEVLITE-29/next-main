@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import React from "react"; // Added React import
 
 interface Role {
   role: string;
@@ -65,13 +66,13 @@ const RoleCardList: React.FC<RoleCardProps> = ({
                 alt={`${title} Icon`}
                 width={32}
                 height={32}
-                className="w-7 h-7 sm:w-8 sm:h-8"
+                className="w-7 h-7 sm:w-8 sm:h-8 flex-shrink-0" 
               />
               <div className="flex-1">
                 <h2 className="mb-1 text-foreground text-sm sm:text-base font-semibold">
                   {title}
                 </h2>
-                <p className="text-muted-foreground text-xs sm:text-sm font-medium leading-snug">
+                <p className="text-muted-foreground text-xs sm:text-sm font-medium leading-snug h-10 flex items-center">
                   {description}
                 </p>
               </div>
