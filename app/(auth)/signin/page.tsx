@@ -53,7 +53,7 @@ export default function SignIn() {
         <h1 className="text-2xl font-semibold text-center tracking-tight">
           Welcome back
         </h1>
-        <p className="mt-1 text-sm text-muted-foreground text-center">
+        <p className="mt-1 text-sm text-card-foreground text-center">
           New to Ogivva?{" "}
           <Link
             href="/onboarding"
@@ -83,7 +83,7 @@ export default function SignIn() {
                 placeholder="e.g example@gmail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-transparent outline-none placeholder:text-muted-foreground text-foreground"
+                className="w-full bg-transparent outline-none placeholder:text-card-foreground text-foreground"
                 required
               />
             </div>
@@ -104,13 +104,13 @@ export default function SignIn() {
                 placeholder="*************"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-transparent outline-none placeholder:text-muted-foreground text-foreground"
+                className="w-full bg-transparent outline-none placeholder:text-card-foreground text-foreground"
                 required
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="text-muted-foreground ml-2"
+                className="text-card-foreground ml-2"
               >
                 {showPassword ? (
                   <Eye className="w-4 h-4" />
@@ -122,7 +122,7 @@ export default function SignIn() {
           </div>
 
           {/* Remember Me & Forgot */}
-          <div className="flex items-center justify-between mt-2 text-muted-foreground">
+          <div className="flex items-center justify-between mt-2 text-card-foreground">
             <label className="flex items-center gap-2 font-medium text-sm">
               <input
                 type="checkbox"
@@ -163,7 +163,7 @@ export default function SignIn() {
           {/* Divider */}
           <div className="flex items-center gap-2 my-4">
             <hr className="flex-grow border-t border-border" />
-            <span className="text-xs text-muted-foreground">or</span>
+            <span className="text-xs text-card-foreground">or</span>
             <hr className="flex-grow border-t border-border" />
           </div>
 

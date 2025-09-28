@@ -61,7 +61,7 @@ export default function SignupPage() {
           <h1 className="text-2xl font-semibold text-foreground mb-1">
             Create an account with Ogivva
           </h1>
-          <p className="text-muted-foreground text-sm mb-5 font-medium">
+          <p className="text-card-foreground text-sm mb-5 font-medium">
             Already have an account?{" "}
             <Link
               href="/signin"
@@ -173,7 +173,7 @@ export default function SignupPage() {
             />
             <label
               htmlFor="terms"
-              className="text-muted-foreground leading-snug font-medium"
+              className="text-card-foreground leading-snug font-medium"
             >
               I agree to the{" "}
               <Link href="/terms" className="text-primary hover:underline">
@@ -215,7 +215,7 @@ export default function SignupPage() {
           >
             <div className="flex items-center gap-2 my-3">
               <hr className="flex-grow border-t border-border" />
-              <span className="text-xs text-muted-foreground/50">or</span>
+              <span className="text-xs text-card-foreground/50">or</span>
               <hr className="flex-grow border-t border-border" />
             </div>
             <a
