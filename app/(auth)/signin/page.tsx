@@ -31,9 +31,14 @@ export default function SignIn() {
       await login(email, password);
       toast.success("Logged in successfully!");
       router.push("/dashboard");
-    } catch (err: any) {
-      toast.error(err.message || "Login failed");
-      console.error("Login error:", err);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        toast.error(err.message);
+        console.error("Login error:", err);
+      } else {
+        toast.error("Login failed");
+        console.error("Unknown error:", err);
+      }
     }
   };
 
@@ -70,10 +75,7 @@ export default function SignIn() {
         >
           {/* Email */}
           <div className="flex flex-col">
-            <label
-              htmlFor="email"
-              className="mb-1 font-medium text-foreground"
-            >
+            <label htmlFor="email" className="mb-1 font-medium text-foreground">
               Email
             </label>
             <div className="flex items-center border rounded-md px-3 py-3 bg-muted focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/30 focus-within:bg-background transition">
