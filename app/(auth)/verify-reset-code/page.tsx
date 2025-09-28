@@ -4,7 +4,7 @@
 import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { LoaderCircle } from "lucide-react";
+import { AlertTriangle, LoaderCircle } from "lucide-react";
 import toast from "react-hot-toast";
 import Image from "next/image";
 
@@ -144,7 +144,12 @@ export default function VerifyCode() {
           </div>
 
           {/* Error message */}
-          {error && <p className="text-destructive text-sm">{error}</p>}
+          {error && (
+            <div className="flex items-center gap-2 mt-2 rounded-md bg-destructive border border-red-200 px-3 py-2 text-sm text-foreground font-medium">
+              <AlertTriangle className="w-4 h-4 text-foreground shrink-0" />
+              <span>{error}</span>
+            </div>
+          )}
 
           {/* Submit Button */}
           <motion.button

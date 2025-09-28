@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { LoaderCircle, Repeat } from "lucide-react";
+import { AlertTriangle, LoaderCircle, Repeat } from "lucide-react";
 import Image from "next/image";
 import toast from "react-hot-toast";
 
@@ -86,7 +86,10 @@ export default function ForgotPassword() {
 
           {/* Error */}
           {error && (
-            <p className="text-destructive text-xs font-semibold">{error}</p>
+            <div className="flex items-center gap-2 mt-2 rounded-md bg-destructive border border-red-200 px-3 py-2 text-sm text-foreground font-medium">
+              <AlertTriangle className="w-4 h-4 text-foreground shrink-0" />
+              <span>{error}</span>
+            </div>
           )}
 
           {/* Action buttons */}

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff, LoaderCircle } from "lucide-react";
+import { AlertTriangle, Eye, EyeOff, LoaderCircle } from "lucide-react";
 import Image from "next/image";
 import toast from "react-hot-toast";
 
@@ -44,7 +44,12 @@ export default function ResetPassword() {
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       {/* Header Logo */}
       <header className="py-4 flex justify-center md:justify-start">
-        <Image src={GivvaIcon} alt="Givva Logo" className="w-28 ml-6" priority />
+        <Image
+          src={GivvaIcon}
+          alt="Givva Logo"
+          className="w-28 ml-6"
+          priority
+        />
       </header>
 
       <main className="flex flex-col justify-center mx-auto w-[80%] md:w-[45%] mt-6 md:mt-10">
@@ -61,7 +66,10 @@ export default function ResetPassword() {
         >
           {/* Password */}
           <div className="flex flex-col">
-            <label htmlFor="password" className="mb-1 font-medium text-foreground">
+            <label
+              htmlFor="password"
+              className="mb-1 font-medium text-foreground"
+            >
               Password
             </label>
             <div className="flex items-center border border-border bg-muted rounded-md px-3 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/30 focus-within:bg-background transition">
@@ -79,14 +87,27 @@ export default function ResetPassword() {
                 onClick={() => setShowPassword(!showPassword)}
                 className="text-foreground ml-1"
               >
-                {showPassword ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                {showPassword ? (
+                  <Eye className="w-4 h-4" />
+                ) : (
+                  <EyeOff className="w-4 h-4" />
+                )}
               </button>
             </div>
           </div>
 
           {/* Error / Password strength */}
-          {error && <p className="text-destructive text-xs font-semibold">{error}</p>}
-          {localError && <p className="text-destructive text-xs font-semibold">{localError}</p>}
+          {error && (
+            <div className="flex items-center gap-2 mt-2 rounded-md bg-destructive border border-red-200 px-3 py-2 text-sm text-foreground font-medium">
+              <AlertTriangle className="w-4 h-4 text-foreground shrink-0" />
+              <span>{error}</span>
+            </div>
+          )}
+          {localError && (
+            <p className="text-destructive text-xs font-semibold">
+              {localError}
+            </p>
+          )}
           {password.length > 0 && <PasswordMeter password={password} />}
 
           {/* Confirm Password */}
@@ -112,7 +133,11 @@ export default function ResetPassword() {
                 onClick={() => setShowSecondPassword(!showSecondPassword)}
                 className="text-foreground ml-1"
               >
-                {showSecondPassword ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                {showSecondPassword ? (
+                  <Eye className="w-4 h-4" />
+                ) : (
+                  <EyeOff className="w-4 h-4" />
+                )}
               </button>
             </div>
           </div>

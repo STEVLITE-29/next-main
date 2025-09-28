@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Eye, EyeOff, LoaderCircle } from "lucide-react";
+import { AlertTriangle, Eye, EyeOff, LoaderCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -157,9 +157,10 @@ export default function SignupPage() {
 
           {/* Error / Password strength */}
           {error && (
-            <p className="text-destructive text-xs font-semibold mt-[2px]">
-              {error}
-            </p>
+            <div className="flex items-center gap-2 mt-2 rounded-md bg-destructive border border-red-200 px-3 py-2 text-sm text-foreground font-medium">
+              <AlertTriangle className="w-4 h-4 text-foreground shrink-0" />
+              <span>{error}</span>
+            </div>
           )}
           {password.length > 0 && <PasswordMeter password={password} />}
 
