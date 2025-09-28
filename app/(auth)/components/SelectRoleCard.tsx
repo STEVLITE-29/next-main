@@ -72,7 +72,7 @@ const RoleCardList: React.FC<RoleCardProps> = ({
                 <h2 className="mb-1 text-foreground text-sm sm:text-base font-semibold">
                   {title}
                 </h2>
-                <p className="text-muted-foreground text-xs sm:text-sm font-medium leading-snug h-10 flex items-center">
+                <p className="text-card-foreground text-xs sm:text-sm font-medium leading-snug h-10 flex items-center">
                   {description}
                 </p>
               </div>
@@ -88,7 +88,7 @@ const RoleCardList: React.FC<RoleCardProps> = ({
           ${
             selectedRole
               ? "bg-primary text-primary-foreground hover:bg-primary/90"
-              : "bg-accent text-muted-foreground cursor-not-allowed"
+              : "bg-accent text-card-foreground cursor-not-allowed"
           }`}
       >
         Continue

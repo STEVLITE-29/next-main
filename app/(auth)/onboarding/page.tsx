@@ -36,7 +36,7 @@ export default function OnboardingPage() {
           Let’s get you started
         </h1>
 
-        <p className="text-muted-foreground text-sm sm:text-base mb-6 text-center font-medium">
+        <p className="text-card-foreground text-sm sm:text-base mb-6 text-center font-medium">
           Tell us what you’d like to do on GIVVA. You can always switch roles
           later.
         </p>
