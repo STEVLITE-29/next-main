@@ -18,7 +18,7 @@ export default function Home() {
         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-snug">
           Welcome to <span className="text-primary">Ogivva</span>
         </h1>
-        <p className="text-muted-foreground text-base sm:text-lg">
+        <p className="text-card-foreground text-base sm:text-lg">
           This is a placeholder for the Ogivva landing page.  
           Sign up to get started or sign in to continue your journey.
         </p>
@@ -33,7 +33,7 @@ export default function Home() {
           </Link>
           <Link
             href="/signin"
-            className="w-full sm:w-auto rounded-lg border border-input bg-background px-6 py-3 text-sm font-semibold hover:bg-muted transition"
+            className="w-full sm:w-auto rounded-lg border border-button-border bg-background px-6 py-3 text-sm font-semibold hover:bg-muted transition"
           >
             Sign In
           </Link>
