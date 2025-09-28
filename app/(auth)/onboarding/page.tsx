@@ -3,8 +3,8 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import GivvaIcon from "@/public/GivvaLogo.svg";
-import PhotoSlider from "@/app/auth/components/PhotoSlider";
-import RoleCardList from "@/app/auth/components/SelectRoleCard";
+import PhotoSlider from "@/app/(auth)/components/PhotoSlider";
+import RoleCardList from "@/app/(auth)/components/SelectRoleCard";
 import { useAuthStore } from "@/store/authStore";
 
 export default function OnboardingPage() {
@@ -19,6 +19,7 @@ export default function OnboardingPage() {
   const handleContinue = () => {
     if (!selectedRole) return;
     console.log("Continue with role:", selectedRole);
+    if (selectedRole) router.push("/signup");
   };
 
   return (
