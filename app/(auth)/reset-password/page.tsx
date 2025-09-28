@@ -19,7 +19,7 @@ export default function ResetPassword() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [localError, setLocalError] = useState("");
 
-  const { isLoading, resetPassword, error } = useAuthStore();
+  const { isLoading, resetPassword, resetError } = useAuthStore();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -97,10 +97,10 @@ export default function ResetPassword() {
           </div>
 
           {/* Error / Password strength */}
-          {error && (
+          {resetError && (
             <div className="flex items-center gap-2 mt-2 rounded-md bg-destructive border border-red-200 px-3 py-2 text-sm text-foreground font-medium">
               <AlertTriangle className="w-4 h-4 text-foreground shrink-0" />
-              <span>{error}</span>
+              <span>{resetError}</span>
             </div>
           )}
           {localError && (

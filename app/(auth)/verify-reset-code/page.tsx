@@ -20,7 +20,7 @@ export default function VerifyCode() {
   const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
   const router = useRouter();
 
-  const { pendingEmail, error, isLoading, verifyResetCode, resendOtp } =
+  const { pendingEmail, verifyError, isLoading, verifyResetCode, resendOtp } =
     useAuthStore();
 
   const emailToShow = pendingEmail;
@@ -144,10 +144,10 @@ export default function VerifyCode() {
           </div>
 
           {/* Error message */}
-          {error && (
+          {verifyError && (
             <div className="flex items-center gap-2 mt-2 rounded-md bg-destructive border border-red-200 px-3 py-2 text-sm text-foreground font-medium">
               <AlertTriangle className="w-4 h-4 text-foreground shrink-0" />
-              <span>{error}</span>
+              <span>{verifyError}</span>
             </div>
           )}
 

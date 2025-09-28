@@ -19,7 +19,7 @@ export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
-  const { signup, error, isLoading, selectedRole } = useAuthStore();
+  const { signup, signupError, isLoading, selectedRole } = useAuthStore();
   const router = useRouter();
 
   // Redirect if no role is selected
@@ -35,7 +35,7 @@ export default function SignupPage() {
 
     try {
       await signup(name, email, password, selectedRole);
-      if (!useAuthStore.getState().error) {
+      if (!useAuthStore.getState().signupError) {
         router.push("/verify-email");
       }
     } catch (err) {
@@ -156,10 +156,10 @@ export default function SignupPage() {
           </div>
 
           {/* Error / Password strength */}
-          {error && (
+          {signupError && (
             <div className="flex items-center gap-2 mt-2 rounded-md bg-destructive border border-red-200 px-3 py-2 text-sm text-foreground font-medium">
               <AlertTriangle className="w-4 h-4 text-foreground shrink-0" />
-              <span>{error}</span>
+              <span>{signupError}</span>
             </div>
           )}
           {password.length > 0 && <PasswordMeter password={password} />}

@@ -18,7 +18,7 @@ export default function VerifyEmail() {
   const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
   const router = useRouter();
 
-  const { pendingEmail, error, isLoading, verifyEmail, resendOtp } =
+  const { pendingEmail, verifyError, isLoading, verifyEmail, resendOtp } =
     useAuthStore();
 
   // Redirect if no pending email
@@ -155,10 +155,10 @@ export default function VerifyEmail() {
           </div>
 
           {/* Error */}
-          {error && (
+          {verifyError && (
             <div className="flex items-center gap-2 mt-2 rounded-md bg-destructive border border-red-200 px-3 py-2 text-sm text-foreground font-medium">
               <AlertTriangle className="w-4 h-4 text-foreground shrink-0" />
-              <span>{error}</span>
+              <span>{verifyError}</span>
             </div>
           )}
 

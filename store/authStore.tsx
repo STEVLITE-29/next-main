@@ -29,7 +29,14 @@ interface AuthState {
   pendingEmail: string | null;
   sessionId: string | null;
   isLoading: boolean;
-  error: string | null;
+
+  // Error buckets
+  signupError: string | null;
+  loginError: string | null;
+  verifyError: string | null;
+  resetError: string | null;
+  checkAuthError: string | null;
+  signoutError: string | null;
 
   // Auth Actions
   signup: (name: string, email: string, password: string, role: Role) => Promise<void>;
@@ -59,13 +66,20 @@ export const useAuthStore = create<AuthState>()(
       pendingEmail: null,
       sessionId: null,
       isLoading: false,
-      error: null,
+
+      // -------------------- Errors --------------------
+      signupError: null,
+      loginError: null,
+      verifyError: null,
+      resetError: null,
+      checkAuthError: null,
+      signoutError: null,
 
       // -------------------- AUTH ROUTES --------------------
 
       // REGISTER
       signup: async (name, email, password, role) => {
-        set({ isLoading: true, error: null, pendingEmail: email });
+        set({ isLoading: true, signupError: null, pendingEmail: email });
         try {
           const res = await axios.post<{ user?: User }>(
             `${API_URL}/v1/auth/register`,
@@ -75,15 +89,16 @@ export const useAuthStore = create<AuthState>()(
           if (res.data.user) set({ user: res.data.user, isLoading: false });
           else set({ isLoading: false });
         } catch (err) {
-          let message = "Something went wrong. Please try again.";
+          let message = "Signup failed. Please try again.";
           if (axios.isAxiosError(err)) message = err.response?.data?.message || message;
-          set({ error: message, isLoading: false });
+          set({ signupError: message, isLoading: false });
+          throw new Error(message);
         }
       },
 
       // VERIFY EMAIL OTP
       verifyEmail: async (code: string) => {
-        set({ isLoading: true, error: null });
+        set({ isLoading: true, verifyError: null });
         try {
           const { pendingEmail } = get();
           if (!pendingEmail) throw new Error("No signup email found.");
@@ -96,14 +111,14 @@ export const useAuthStore = create<AuthState>()(
         } catch (err) {
           let message = "Verification failed. Please try again.";
           if (axios.isAxiosError(err)) message = err.response?.data?.message || message;
-          set({ error: message, isLoading: false });
+          set({ verifyError: message, isLoading: false });
           throw new Error(message);
         }
       },
 
-      // RESEND OTP (email_verification or password_reset)
+      // RESEND OTP
       resendOtp: async (type: "email_verification" | "password_reset" = "email_verification") => {
-        set({ isLoading: true, error: null });
+        set({ isLoading: true, verifyError: null });
         try {
           const { pendingEmail } = get();
           if (!pendingEmail) throw new Error("No email found in session.");
@@ -116,16 +131,15 @@ export const useAuthStore = create<AuthState>()(
         } catch (err) {
           let message = "Failed to resend verification code.";
           if (axios.isAxiosError(err)) message = err.response?.data?.message || message;
-          set({ error: message, isLoading: false });
+          set({ verifyError: message, isLoading: false });
           throw new Error(message);
         }
       },
 
       // -------------------- PASSWORD RESET --------------------
 
-      // FORGOT PASSWORD
       forgotPassword: async (email: string) => {
-        set({ isLoading: true, error: null, pendingEmail: email, sessionId: null });
+        set({ isLoading: true, resetError: null, pendingEmail: email, sessionId: null });
         try {
           const res = await axios.post<{ sessionId: string }>(
             `${API_URL}/v1/auth/forgot-password`,
@@ -136,14 +150,13 @@ export const useAuthStore = create<AuthState>()(
         } catch (err) {
           let message = "Failed to send reset link.";
           if (axios.isAxiosError(err)) message = err.response?.data?.message || message;
-          set({ error: message, isLoading: false });
+          set({ resetError: message, isLoading: false });
           throw new Error(message);
         }
       },
 
-      // VERIFY RESET OTP
       verifyResetCode: async (code: string) => {
-        set({ isLoading: true, error: null });
+        set({ isLoading: true, resetError: null });
         try {
           const res = await axios.post<{ sessionId: string }>(
             `${API_URL}/v1/auth/verify-password-reset-otp`,
@@ -154,14 +167,13 @@ export const useAuthStore = create<AuthState>()(
         } catch (err) {
           let message = "Verification failed. Please try again.";
           if (axios.isAxiosError(err)) message = err.response?.data?.message || message;
-          set({ error: message, isLoading: false });
+          set({ resetError: message, isLoading: false });
           throw new Error(message);
         }
       },
 
-      // RESET PASSWORD
       resetPassword: async (newPassword: string) => {
-        set({ isLoading: true, error: null });
+        set({ isLoading: true, resetError: null });
         try {
           const { sessionId } = get();
           if (!sessionId) throw new Error("No reset session found.");
@@ -175,16 +187,15 @@ export const useAuthStore = create<AuthState>()(
         } catch (err) {
           let message = "Failed to reset password. Please try again.";
           if (axios.isAxiosError(err)) message = err.response?.data?.message || message;
-          set({ error: message, isLoading: false });
+          set({ resetError: message, isLoading: false });
           throw new Error(message);
         }
       },
 
       // -------------------- LOGIN / SESSION --------------------
 
-      // LOGIN
       login: async (email: string, password: string) => {
-        set({ isLoading: true, error: null });
+        set({ isLoading: true, loginError: null });
         try {
           const res = await axios.post<{ user: User; token: string }>(
             `${API_URL}/v1/auth/login`,
@@ -194,16 +205,15 @@ export const useAuthStore = create<AuthState>()(
           localStorage.setItem("jwt_token", res.data.token);
           set({ user: res.data.user, isLoading: false, pendingEmail: null });
         } catch (err) {
-          let message = "Something went wrong. Please try again.";
+          let message = "Login failed. Please try again.";
           if (axios.isAxiosError(err)) message = err.response?.data?.message || message;
-          set({ error: message, isLoading: false });
+          set({ loginError: message, isLoading: false });
           throw new Error(message);
         }
       },
 
-      // CHECK AUTH (validate token)
       checkAuth: async () => {
-        set({ isLoading: true, error: null });
+        set({ isLoading: true, checkAuthError: null });
         try {
           const token = localStorage.getItem("jwt_token");
           if (!token) throw new Error("No token found.");
@@ -215,14 +225,13 @@ export const useAuthStore = create<AuthState>()(
         } catch (err) {
           let message = "Not authenticated.";
           if (axios.isAxiosError(err)) message = err.response?.data?.message || message;
-          set({ user: null, error: message, isLoading: false });
+          set({ user: null, checkAuthError: message, isLoading: false });
           throw new Error(message);
         }
       },
 
-      // SIGN OUT
       signout: async () => {
-        set({ isLoading: true, error: null });
+        set({ isLoading: true, signoutError: null });
         try {
           const token = localStorage.getItem("jwt_token");
           if (!token) throw new Error("No token found.");
@@ -236,13 +245,13 @@ export const useAuthStore = create<AuthState>()(
         } catch (err) {
           let message = "Failed to sign out.";
           if (axios.isAxiosError(err)) message = err.response?.data?.message || message;
-          set({ error: message, isLoading: false });
+          set({ signoutError: message, isLoading: false });
           throw new Error(message);
         }
       },
     }),
     {
-      name: "ogivva-auth", // persisted store key
+      name: "ogivva-auth",
       storage: createJSONStorage(() => localStorage),
       version: 1,
       partialize: (state) => ({

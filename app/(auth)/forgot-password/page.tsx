@@ -15,7 +15,7 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [linkSent, setLinkSent] = useState(false);
 
-  const { forgotPassword, resendOtp, error, isLoading } = useAuthStore();
+  const { forgotPassword, resendOtp, resetError, isLoading } = useAuthStore();
   const router = useRouter();
 
   // Handle first request
@@ -85,10 +85,10 @@ export default function ForgotPassword() {
           </div>
 
           {/* Error */}
-          {error && (
+          {resetError && (
             <div className="flex items-center gap-2 mt-2 rounded-md bg-destructive border border-red-200 px-3 py-2 text-sm text-foreground font-medium">
               <AlertTriangle className="w-4 h-4 text-foreground shrink-0" />
-              <span>{error}</span>
+              <span>{resetError}</span>
             </div>
           )}
 
