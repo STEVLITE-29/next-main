@@ -3,7 +3,7 @@
 
 /* @custom-variant :root (&:is(:root *)); */
 
-body {
+* {
   font-family: 'General Sans', sans-serif;
 }
 
