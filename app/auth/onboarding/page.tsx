@@ -19,12 +19,6 @@ export default function OnboardingPage() {
   const handleContinue = () => {
     if (!selectedRole) return;
     console.log("Continue with role:", selectedRole);
-
-    if (selectedRole === "vendor") {
-      router.push("/signup/vendor");
-    } else {
-      router.push("/signup");
-    }
   };
 
   return (
