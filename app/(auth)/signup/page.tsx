@@ -164,7 +164,7 @@ export default function SignupPage() {
           {password.length > 0 && <PasswordMeter password={password} />}
 
           {/* Terms */}
-          <div className="flex items-center gap-2 text-xs mt-1.5">
+          <div className="flex items-center justify-start gap-2 text-xs mt-1.5">
             <input
               type="checkbox"
               id="terms"
@@ -173,7 +173,7 @@ export default function SignupPage() {
             />
             <label
               htmlFor="terms"
-              className="text-card-foreground leading-snug font-medium"
+              className="text-card-foreground leading-snug font-medium "
             >
               I agree to the{" "}
               <Link href="/terms" className="text-primary hover:underline">
