@@ -48,7 +48,12 @@ export default function ForgotPassword() {
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       {/* Logo */}
       <header className="py-4 flex justify-center md:justify-start">
-        <Image src={GivvaIcon} alt="Givva Logo" className="w-28 ml-6" priority />
+        <Image
+          src={GivvaIcon}
+          alt="Givva Logo"
+          className="w-28 ml-6"
+          priority
+        />
       </header>
 
       <main className="flex flex-col justify-center mx-auto w-[85%] md:w-[40%] mt-6 md:mt-12">
@@ -130,7 +135,7 @@ export default function ForgotPassword() {
           {/* Back to Login */}
           <motion.button
             type="button"
-            onClick={() => router.push("/auth/signin")}
+            onClick={() => router.push("/signin")}
             className="mt-2 bg-muted text-primary py-3 rounded-lg font-semibold text-sm transition hover:bg-muted/80"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
