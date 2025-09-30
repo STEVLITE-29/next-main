@@ -258,6 +258,7 @@ export const useAuthStore = create<AuthState>()(
         user: state.user,
         pendingEmail: state.pendingEmail,
         sessionId: state.sessionId,
+        selectedRole: state.selectedRole,
       }),
     }
   )
