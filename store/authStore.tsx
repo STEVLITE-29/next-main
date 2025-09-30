@@ -19,6 +19,7 @@ export interface User {
 
 // Store state + actions
 interface AuthState {
+  setState(arg0: { hasHydrated: boolean; }): unknown;
   // Onboarding
   selectedRole: Role | null;
   setRole: (role: Role) => void;
@@ -29,6 +30,7 @@ interface AuthState {
   pendingEmail: string | null;
   sessionId: string | null;
   isLoading: boolean;
+  hasHydrated: boolean; 
 
   // Error buckets
   signupError: string | null;
@@ -52,10 +54,12 @@ interface AuthState {
   signout: () => Promise<void>;
 }
 
-// Zustand store with persist middleware
 export const useAuthStore = create<AuthState>()(
   persist(
     (set, get) => ({
+      // -------------------- Utility --------------------
+      setState: (partial) => set(partial),
+
       // -------------------- Onboarding --------------------
       selectedRole: null,
       setRole: (role) => set({ selectedRole: role }),
@@ -66,6 +70,7 @@ export const useAuthStore = create<AuthState>()(
       pendingEmail: null,
       sessionId: null,
       isLoading: false,
+      hasHydrated: false, 
 
       // -------------------- Errors --------------------
       signupError: null,
@@ -76,8 +81,6 @@ export const useAuthStore = create<AuthState>()(
       signoutError: null,
 
       // -------------------- AUTH ROUTES --------------------
-
-      // REGISTER
       signup: async (name, email, password, role) => {
         set({ isLoading: true, signupError: null, pendingEmail: email });
         try {
@@ -96,7 +99,6 @@ export const useAuthStore = create<AuthState>()(
         }
       },
 
-      // VERIFY EMAIL OTP
       verifyEmail: async (code: string) => {
         set({ isLoading: true, verifyError: null });
         try {
@@ -116,7 +118,6 @@ export const useAuthStore = create<AuthState>()(
         }
       },
 
-      // RESEND OTP
       resendOtp: async (type: "email_verification" | "password_reset" = "email_verification") => {
         set({ isLoading: true, verifyError: null });
         try {
@@ -137,7 +138,6 @@ export const useAuthStore = create<AuthState>()(
       },
 
       // -------------------- PASSWORD RESET --------------------
-
       forgotPassword: async (email: string) => {
         set({ isLoading: true, resetError: null, pendingEmail: email, sessionId: null });
         try {
@@ -193,7 +193,6 @@ export const useAuthStore = create<AuthState>()(
       },
 
       // -------------------- LOGIN / SESSION --------------------
-
       login: async (email: string, password: string) => {
         set({ isLoading: true, loginError: null });
         try {
@@ -260,6 +259,10 @@ export const useAuthStore = create<AuthState>()(
         sessionId: state.sessionId,
         selectedRole: state.selectedRole,
       }),
+      onRehydrateStorage: () => (state) => {
+        state?.hasHydrated !== undefined && state.hasHydrated === false &&
+          state.setState({ hasHydrated: true });
+      },
     }
   )
 );

@@ -19,11 +19,12 @@ export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
-  const { signup, signupError, isLoading, selectedRole } = useAuthStore();
+  const { signup, signupError, isLoading, selectedRole, hasHydrated } = useAuthStore();
   const router = useRouter();
 
   // Redirect if no role is selected
   useEffect(() => {
+     if (!hasHydrated) return;
     if (!selectedRole) {
       router.replace("/onboarding");
     }
@@ -44,7 +45,7 @@ export default function SignupPage() {
   };
 
   if (!selectedRole) {
-    return null; // Don’t render until role is set
+    return null; 
   }
 
   return (

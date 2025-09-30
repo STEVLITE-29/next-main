@@ -19,14 +19,14 @@ export default function Home() {
           Welcome to <span className="text-primary">Ogivva</span>
         </h1>
         <p className="text-card-foreground text-base sm:text-lg">
-          This is a placeholder for the Ogivva landing page.  
-          Sign up to get started or sign in to continue your journey.
+          This is a placeholder for the Ogivva landing page. Sign up to get
+          started or sign in to continue your journey.
         </p>
 
         {/* Buttons */}
         <div className="flex gap-4 items-center flex-col sm:flex-row w-full sm:w-auto">
           <Link
-            href="/signup"
+            href="/onboarding"
             className="w-full sm:w-auto rounded-lg bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:bg-primary-hover transition"
           >
             Get Started
